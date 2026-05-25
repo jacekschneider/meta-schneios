@@ -1,6 +1,6 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${MACHINE}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI:zynq-generic:append = " file://platform-top.h file://bsp.cfg"
+SRC_URI:append = " file://platform-top.h file://bsp.cfg"
 
 do_configure:append() {
     install -d ${S}/include/configs
