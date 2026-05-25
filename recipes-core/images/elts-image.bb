@@ -26,7 +26,7 @@ IMAGE_INSTALL:append = " tcpdump iputils"
 # kernel
 IMAGE_INSTALL:append = " kernel-devsrc"
 ## Store the kernel in the rootfs partition
-IMAGE_INSTALL:append = " kernel-image kernel-modules"
+IMAGE_INSTALL:append = " kernel-image kernel-modules kernel-devicetree"
 IMAGE_INSTALL:append = " mcpioexpander"
 IMAGE_INSTALL:append = " kernel-module-gpio-interrupt"
 

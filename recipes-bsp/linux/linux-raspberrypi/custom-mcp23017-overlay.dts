@@ -1,0 +1,30 @@
+/dts-v1/;
+/plugin/;
+
+/{
+    fragment@0 {
+        target = <&i2c1>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+
+            mcp23017@27 {
+                compatible = "mcp,mcp23017";
+                reg = <0x27>;
+                gpio-controller;
+                #gpio-cells = <2>;
+
+                interrupt-parent = <&gpio>;
+                interrupts = <23 2>;
+                interrupt-controller;
+                #interrupt-cells = <2>;
+
+                microchip,irq-mirror;
+                pinctrl-names = "default";
+                reset-gpios = <&gpio 24 2>;
+
+                status = "okay";
+            };
+        };
+    };
+};
