@@ -11,6 +11,7 @@
 #include <linux/delay.h>
 #include <linux/err.h>
 #include <linux/jiffies.h>
+#include <linux/gpio/consumer.h>
 
 #define GPIO_21_IN  (21)
 
@@ -19,8 +20,11 @@ extern unsigned long volatile jiffies;
 unsigned long old_jiffie = 0;
 
 dev_t dev=0;
+
+static struct device* device_trigger; 
 static struct class *dev_class;
 static struct cdev gpioint_cdev;
+static struct gpio_desc* gpio_trigger;
 
 static int __init gpioint_driver_init(void);
 static void __exit gpioint_driver_exit(void);
@@ -40,13 +44,13 @@ static struct file_operations fops =
 
 static int gpioint_open(struct inode *inode, struct file *file)
 {
-    pr_info("Device file openend...\n");
+    dev_dbg(device_trigger, "Device file openend...");
     return 0;
 }
 
 static int gpioint_release(struct inode *inode, struct file *file)
 {
-    pr_info("Device file closed...\n");
+    dev_dbg(device_trigger, "Device file closed...");
     return 0;
 }
 
@@ -56,10 +60,10 @@ static ssize_t gpioint_read(struct file *filp, char __user *buf, size_t len, lof
     len = strlen(output);
     if (copy_to_user(buf, output, len) > 0)
     {
-        pr_err("ERROR: not all bytes have been copied to user...\n");
+        dev_dbg(device_trigger, "ERROR: not all bytes have been copied to user...");
     }
 
-    pr_info("Device read called...\n");
+    dev_dbg(device_trigger, "Device read called...\n");
     return 0;
 }
 
@@ -68,10 +72,10 @@ static ssize_t gpioint_write(struct file *filp, const char __user *buf, size_t l
     uint8_t input[1024];
     if(copy_from_user(input, buf, len) > 0)
     {
-        pr_err("ERROR: not all bytes have been copied from user...\n");
+        dev_err(device_trigger, "ERROR: not all bytes have been copied from user...\n");
     }
 
-    pr_info("Device write called with %s...\n", input);
+    dev_dbg(device_trigger, "Device write called with %s...\n", input);
     return len;
 }
 
@@ -83,7 +87,7 @@ static irqreturn_t gpio_irq_handler(int irq, void *dev_id)
         return IRQ_HANDLED;
     }
     old_jiffie = jiffies;
-    pr_info("Interrupt triggered...\n");
+    dev_dbg(device_trigger, "Interrupt triggered...\n");
     return IRQ_HANDLED;
 }
 
@@ -92,10 +96,8 @@ static int __init gpioint_driver_init(void)
     /*Dynamically allocate major number*/
     if((alloc_chrdev_region(&dev, 0, 1, "gpioint_dev")) < 0)
     {
-        pr_err("Couldn't allocate major number...\n");
         goto r_unreg;
     }
-    pr_info("Major = %d, Minor = %d\n", MAJOR(dev), MINOR(dev));
 
     /*Create char. device*/
     cdev_init(&gpioint_cdev, &fops);
@@ -103,57 +105,43 @@ static int __init gpioint_driver_init(void)
     /*Add char. device to the system*/
     if((cdev_add(&gpioint_cdev, dev, 1)) < 0)
     {
-        pr_info("Couldn't add char. device to the system...\n");
         goto r_del;
     }
 
     /*Create device class*/
     if(IS_ERR(dev_class = class_create("gpioint_class")))
     {
-        pr_err("Couldn't create device class...\n");
         goto r_class;
     }
 
     /*Create device*/
-    if(IS_ERR(device_create(dev_class, NULL, dev, NULL, "gpioint_device")))
+    device_trigger = device_create(dev_class, NULL, dev, NULL, "gpioint_device");
+    if(IS_ERR(device_trigger))
     {
-        pr_err("Cannout create the device...\n");
+        dev_err(device_trigger, "Cannout create the device...\n");
         goto r_device;
     }
 
     //Input GPIO
-    /*Check gpio is valid*/
-    if(gpio_is_valid(GPIO_21_IN) == false)
-    {
-        pr_err("ERROR: GPIO %d is not valid...\n", GPIO_21_IN);
-        goto r_gpio;
-    }
 
     /*Request gpio*/
-    if(gpio_request(GPIO_21_IN, "GPIO_21_IN") < 0)
+    gpio_trigger = gpiod_get(device_trigger, "trigger", GPIOD_IN);
+    if( gpio_trigger < 0)
     {
-        pr_err("ERROR: GPIO %d request...\n", GPIO_21_IN);
+        dev_err(device_trigger, "ERROR: GPIO get...\n");
         goto r_gpio;
     }
 
-    /*Configure gpio as input*/
-    gpio_direction_input(GPIO_21_IN);
-
-    if(gpiod_set_debounce(GPIO_21_IN, 200) < 0)
-    {
-        pr_err("Error: gpio set debounce -%d...\n", GPIO_21_IN);
-    }
-
-    GPIO_irqNumber = gpio_to_irq(GPIO_21_IN);
-    pr_info("GPIO irq number is %d...\n", GPIO_irqNumber);
+    GPIO_irqNumber = gpiod_to_irq(gpio_trigger);
+    dev_dbg(device_trigger, "GPIO irq number is %d...\n", GPIO_irqNumber);
 
     if(request_irq(GPIO_irqNumber, (void*)gpio_irq_handler, IRQF_TRIGGER_RISING, "gpioint_device", NULL))
     {
-        pr_err("Error: failed to register the interrupt%d...\n", GPIO_irqNumber);
+        dev_err(device_trigger, "Error: failed to register the interrupt%d...\n", GPIO_irqNumber);
         goto r_gpio;
     }
 
-    pr_info("gpioint driver inserted successfully...\n");
+    dev_dbg(device_trigger, "gpioint driver inserted successfully...\n");
     return 0;
 r_gpio:
     gpio_free(GPIO_21_IN);
@@ -176,7 +164,7 @@ static void __exit gpioint_driver_exit(void)
     class_destroy(dev_class);
     cdev_del(&gpioint_cdev);
     unregister_chrdev_region(dev, 1);
-    pr_info("gpioint driver removed successfully...\n");
+    dev_dbg(device_trigger, "gpioint driver removed successfully...\n");
 }
 
 module_init(gpioint_driver_init);

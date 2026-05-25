@@ -1,0 +1,11 @@
+/dts-v1/;
+/plugin/;
+
+/{
+    fragment@1 {
+        target = <&gpio>;
+        __overlay__ {
+            trigger-gpios = <&gpio 21 2>;
+        };
+    };
+};
