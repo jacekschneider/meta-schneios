@@ -126,7 +126,7 @@ static int __init gpioint_driver_init(void)
 
     /*Request gpio*/
     gpio_trigger = gpiod_get(device_trigger, "trigger", GPIOD_IN);
-    if( gpio_trigger < 0)
+    if(IS_ERR(gpio_trigger))
     {
         dev_err(device_trigger, "ERROR: GPIO get...\n");
         goto r_gpio;
