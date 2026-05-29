@@ -21,12 +21,11 @@ IMAGE_INSTALL:append = " gdbserver"
 IMAGE_INSTALL:append = " dtc"
 
 # networking
-IMAGE_INSTALL:append = " tcpdump iputils"
+IMAGE_INSTALL:append = " tcpdump iputils static-ipv4"
 
 # kernel
-IMAGE_INSTALL:append = " kernel-devsrc"
-## Store the kernel in the rootfs partition
-IMAGE_INSTALL:append = " kernel-image kernel-modules kernel-devicetree"
+## Store the kernel/modules/devicetree/source in the rootfs partition
+IMAGE_INSTALL:append = " kernel-devsrc kernel-image kernel-modules kernel-devicetree"
 IMAGE_INSTALL:append = " mcpioexpander"
 IMAGE_INSTALL:append = " kernel-module-gpio-interrupt"
 

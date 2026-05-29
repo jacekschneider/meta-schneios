@@ -1,9 +1,0 @@
-#!/bin/sh
-
-# Optional: merge user X resources
-[ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
-
-# Start Openbox window manager
-openbox &
-exec matchbox-desktop
-

@@ -12,6 +12,8 @@
 #include <linux/err.h>
 #include <linux/jiffies.h>
 #include <linux/gpio/consumer.h>
+#include <linux/of.h>
+#include <linux/platform_device.h>
 
 #define GPIO_21_IN  (21)
 
@@ -91,8 +93,16 @@ static irqreturn_t gpio_irq_handler(int irq, void *dev_id)
     return IRQ_HANDLED;
 }
 
-static int __init gpioint_driver_init(void)
+static const struct of_device_id trigger_dt_table[] =
 {
+    {.compatible = "schneider,trigger_module"},
+    {},
+};
+MODULE_DEVICE_TABLE(of, trigger_dt_table);
+
+static int gpioint_driver_probe(struct platform_device *pdev)
+{
+    
     /*Dynamically allocate major number*/
     if((alloc_chrdev_region(&dev, 0, 1, "gpioint_dev")) < 0)
     {
@@ -118,33 +128,31 @@ static int __init gpioint_driver_init(void)
     device_trigger = device_create(dev_class, NULL, dev, NULL, "gpioint_device");
     if(IS_ERR(device_trigger))
     {
-        dev_err(device_trigger, "Cannout create the device...\n");
+        dev_err(&pdev->dev, "Cannout create the device...\n");
         goto r_device;
     }
 
     //Input GPIO
 
     /*Request gpio*/
-    gpio_trigger = gpiod_get(device_trigger, "trigger", GPIOD_IN);
+    gpio_trigger = devm_gpiod_get(&pdev->dev, "trigger", GPIOD_IN);
     if(IS_ERR(gpio_trigger))
     {
-        dev_err(device_trigger, "ERROR: GPIO get...\n");
-        goto r_gpio;
+        dev_err(&pdev->dev, "ERROR: GPIO get...\n");
+        goto r_device;
     }
 
     GPIO_irqNumber = gpiod_to_irq(gpio_trigger);
     dev_dbg(device_trigger, "GPIO irq number is %d...\n", GPIO_irqNumber);
-
     if(request_irq(GPIO_irqNumber, (void*)gpio_irq_handler, IRQF_TRIGGER_RISING, "gpioint_device", NULL))
     {
-        dev_err(device_trigger, "Error: failed to register the interrupt%d...\n", GPIO_irqNumber);
-        goto r_gpio;
+        dev_err(&pdev->dev, "Error: failed to register the interrupt%d...\n", GPIO_irqNumber);
+        goto r_device;
     }
 
-    dev_dbg(device_trigger, "gpioint driver inserted successfully...\n");
+    dev_dbg(&pdev->dev, "gpioint driver inserted successfully...\n");
     return 0;
-r_gpio:
-    gpio_free(GPIO_21_IN);
+
 r_device:
     device_destroy(dev_class, dev);
 r_class:
@@ -156,15 +164,36 @@ r_unreg:
     return -1;
 }
 
-static void __exit gpioint_driver_exit(void)
+static int gpioint_driver_remove(struct platform_device *pdev)
 {
-    free_irq(GPIO_irqNumber, NULL);
-    gpio_free(GPIO_21_IN);
     device_destroy(dev_class, dev);
     class_destroy(dev_class);
     cdev_del(&gpioint_cdev);
     unregister_chrdev_region(dev, 1);
     dev_dbg(device_trigger, "gpioint driver removed successfully...\n");
+    return 0;
+}
+
+static struct platform_driver gpioint_driver = {
+    .probe = gpioint_driver_probe,
+    .remove = gpioint_driver_remove,
+    .driver =
+    {
+        .name = "gpioint-driver",
+        .of_match_table = trigger_dt_table,
+    },
+};
+
+static int __init gpioint_driver_init(void)
+{
+    pr_info("gpioint:  gpioint_driver_init");
+    return platform_driver_register(&gpioint_driver);
+}
+
+static void __exit gpioint_driver_exit(void)
+{
+    pr_info("gpioint: gpioint_driver_exit");
+    return platform_driver_unregister(&gpioint_driver);
 }
 
 module_init(gpioint_driver_init);

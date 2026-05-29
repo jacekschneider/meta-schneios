@@ -3,9 +3,15 @@
 
 /{
     fragment@1 {
-        target = <&gpio>;
+        target-path = "/";
         __overlay__ {
-            trigger-gpios = <&gpio 21 2>;
+
+            trigger_device@0 {
+                compatible = "schneider,trigger_module";
+                trigger-gpios = <&gpio 21 2>;
+                status = "okay";
+            };
+
         };
     };
 };
