@@ -28,6 +28,7 @@ IMAGE_INSTALL:append = " tcpdump iputils static-ipv4"
 IMAGE_INSTALL:append = " kernel-devsrc kernel-image kernel-modules kernel-devicetree"
 IMAGE_INSTALL:append = " mcpioexpander"
 IMAGE_INSTALL:append = " kernel-module-gpio-interrupt"
+IMAGE_INSTALL:append = " tft3-5-display"
 
 # lib
 IMAGE_INSTALL:append = " libgpiod libgpiod-tools libiio libcamera"
