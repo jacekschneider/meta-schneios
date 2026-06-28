@@ -30,6 +30,9 @@ IMAGE_INSTALL:append = " mcpioexpander"
 IMAGE_INSTALL:append = " kernel-module-gpio-interrupt"
 IMAGE_INSTALL:append = " tft3-5-display"
 
+##kgdb
+IMAGE_INSTALL:append = " kdmx"
+
 # lib
 IMAGE_INSTALL:append = " libgpiod libgpiod-tools libiio libcamera"
 
