@@ -44,3 +44,7 @@ IMAGE_INSTALL:append = " lcd-show"
 
 # rauc
 IMAGE_INSTALL:append = " rauc"
+
+# graphic stack test
+IMAGE_INSTALL:append = " libdrm-tests"
+IMAGE_INSTALL:append = " kmscube"

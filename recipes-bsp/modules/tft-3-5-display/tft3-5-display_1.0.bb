@@ -1,8 +1,8 @@
 DESCRIPTION = "tft35 display module"
 LICENSE = "CLOSED"
 
-SRC_URI = "git://github.com/jacekschneider/display-spi-tft3-5.git;protocol=https;branch=main"
-SRCREV = "${AUTOREV}"
+SRC_URI = "git://github.com/jacekschneider/display-spi-tft3-5.git;protocol=https;branch=drm-pipe"
+SRCREV = "73c66be66cfcab5050b53f5a3d9d3eeb64b71bbb"
 
 inherit module
 
