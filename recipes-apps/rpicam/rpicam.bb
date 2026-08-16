@@ -12,7 +12,7 @@ SRC_URI = "file://rpicam.c \
 	   file://Makefile \
 		  "
 
-S = "${WORKDIR}"
+S = "${UNPACKDIR}"
 
 do_compile() {
 	     oe_runmake

@@ -5,10 +5,10 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 SRC_URI += "file://motd"
 
-S = "${WORKDIR}"
+S = "${UNPACKDIR}"
 
 do_patch() {
-    MOTD_FILE="${WORKDIR}/motd"
+    MOTD_FILE="${UNPACKDIR}/motd"
 
     {
         echo ""

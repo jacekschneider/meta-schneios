@@ -14,8 +14,8 @@ FILES:${PN} += " \
 
 do_install:append() {
     install -d ${D}${sysconfdir}/modules-load.d
-    install -m 0644 ${WORKDIR}/extra-modules.conf ${D}${sysconfdir}/modules-load.d
+    install -m 0644 ${UNPACKDIR}/extra-modules.conf ${D}${sysconfdir}/modules-load.d
 
     install -d ${D}${sysconfdir}/modprobe.d
-    install -m 0644 ${WORKDIR}/debug.conf ${D}${sysconfdir}/modprobe.d
+    install -m 0644 ${UNPACKDIR}/debug.conf ${D}${sysconfdir}/modprobe.d
 }

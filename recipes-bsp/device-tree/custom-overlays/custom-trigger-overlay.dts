@@ -1,0 +1,17 @@
+/dts-v1/;
+/plugin/;
+
+/{
+    fragment@1 {
+        target-path = "/";
+        __overlay__ {
+
+            trigger_device@0 {
+                compatible = "schneider,trigger_module";
+                trigger-gpios = <&gpio 21 2>;
+                status = "okay";
+            };
+
+        };
+    };
+};

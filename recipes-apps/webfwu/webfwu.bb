@@ -27,7 +27,7 @@ SRC_URI = "file://index.html \
     file://wwwlogo.png \
           "
 
-S = "${WORKDIR}"
+S = "${UNPACKDIR}"
 
 FILES:${PN} += "/srv/www/*"
 

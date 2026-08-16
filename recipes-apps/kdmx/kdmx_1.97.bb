@@ -7,8 +7,6 @@ a debug session. \
 SRC_URI = "git://git.kernel.org/pub/scm/utils/kernel/kgdb/agent-proxy.git;protocol=https;nobranch=1"
 SRCREV = "agent-proxy-1.97"
 LICENSE = "GPL-2.0-only"
-
-S = "${WORKDIR}/git"
 LIC_FILES_CHKSUM = "file://COPYING;md5=eb723b61539feef013de476e68b5c50a"
 
 do_patch() {

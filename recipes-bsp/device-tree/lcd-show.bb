@@ -4,9 +4,6 @@ LICENSE = "CLOSED"
 SRC_URI = "git://github.com/goodtft/LCD-show.git;protocol=https;branch=master"
 
 SRCREV = "${AUTOREV}"
-PV = "1.0"
-
-S = "${WORKDIR}/git"
 
 inherit deploy
 

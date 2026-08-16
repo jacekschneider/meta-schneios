@@ -26,9 +26,11 @@ IMAGE_INSTALL:append = " tcpdump iputils static-ipv4"
 # kernel
 ## Store the kernel/modules/devicetree/source in the rootfs partition
 IMAGE_INSTALL:append = " kernel-devsrc kernel-image kernel-modules kernel-devicetree"
-IMAGE_INSTALL:append = " mcpioexpander"
-IMAGE_INSTALL:append = " kernel-module-gpio-interrupt"
+#IMAGE_INSTALL:append = " mcpioexpander"
+#IMAGE_INSTALL:append = " kernel-module-gpio-interrupt"
 IMAGE_INSTALL:append = " tft3-5-display"
+## Device Tree
+IMAGE_INSTALL:append = " custom-overlays"
 
 ##kgdb
 IMAGE_INSTALL:append = " kdmx"
@@ -45,6 +47,8 @@ IMAGE_INSTALL:append = " lcd-show"
 # rauc
 IMAGE_INSTALL:append = " rauc"
 
-# graphic stack test
+# graphics stack test
 IMAGE_INSTALL:append = " libdrm-tests"
 IMAGE_INSTALL:append = " kmscube"
+
+CORE_IMAGE_EXTRA_INSTALL += "wayland weston"

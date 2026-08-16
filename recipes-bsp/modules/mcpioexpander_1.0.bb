@@ -8,7 +8,7 @@ inherit module
 
 KERNEL_MODULE_PROBECONF = "pinctrl-mcp23017_i2c"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/${PN}-${PV}"
 
 
 do_configure() {

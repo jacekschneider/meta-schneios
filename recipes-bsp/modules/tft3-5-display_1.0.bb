@@ -1,14 +1,14 @@
 DESCRIPTION = "tft35 display module"
 LICENSE = "CLOSED"
 
-SRC_URI = "git://github.com/jacekschneider/display-spi-tft3-5.git;protocol=https;branch=drm-pipe"
-SRCREV = "73c66be66cfcab5050b53f5a3d9d3eeb64b71bbb"
+SRC_URI = "git://github.com/jacekschneider/display-spi-tft3-5.git;protocol=https;branch=main"
+SRCREV = "afe1a16fe9d4e973e66124c5b46130042308d560"
 
 inherit module
 
 KERNEL_MODULE_PROBECONF = "tft35_spi"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/${PN}-${PV}"
 
 
 do_configure() {

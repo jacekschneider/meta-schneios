@@ -1,5 +1,5 @@
-SUMMARY="Add static ip to systemd configuration"
-LICENSE="CLOSED"
+SUMMARY = "Add static ip to systemd configuration"
+LICENSE = "CLOSED"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
@@ -16,5 +16,5 @@ FILES:${PN} += " \
 
 do_install:append() {
     install -d ${D}${sysconfdir}/systemd/network
-    install -m 0644 ${WORKDIR}/10_eth0.network ${D}${sysconfdir}/systemd/network
+    install -m 0644 ${UNPACKDIR}/10_eth0.network ${D}${sysconfdir}/systemd/network
 }
