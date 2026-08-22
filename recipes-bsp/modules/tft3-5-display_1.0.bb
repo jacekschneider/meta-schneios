@@ -2,13 +2,20 @@ DESCRIPTION = "tft35 display module"
 LICENSE = "CLOSED"
 
 SRC_URI = "git://github.com/jacekschneider/display-spi-tft3-5.git;protocol=https;branch=main"
-SRCREV = "afe1a16fe9d4e973e66124c5b46130042308d560"
+SRCREV = "aaf6dfef4f882052775e5aaa1487a9321928dd9c"
 
-inherit module
+inherit module 
 
 KERNEL_MODULE_PROBECONF = "tft35_spi"
 
+# inherit externalsrc
+# EXTERNALSRC = "${THISDIR}/display-spi-tft3-5"
+# EXTERNALSRC_BUILD = "${WORKDIR}/build"
+# S = "${EXTERNALSRC}"
+# B = "${EXTERNALSRC_BUILD}"
+
 S = "${UNPACKDIR}/${PN}-${PV}"
+
 
 
 do_configure() {
