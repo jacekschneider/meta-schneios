@@ -11,3 +11,6 @@ inherit linux-kernel-base kernel-fit-image-schneios
 # Set the version of this recipe to the version of the included kernel
 # (without taking the long way around via PV)
 PKGV = "${@get_kernelversion_file("${STAGING_KERNEL_BUILDDIR}")}"
+
+INITRAMFS_IMAGE = "schneios-image-zynq"
+INITRAMFS_IMAGE_BUNDLE = "0"
