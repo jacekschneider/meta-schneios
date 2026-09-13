@@ -2,6 +2,7 @@ From c88f731f9202d94c985badd4d9c07c93340f507a Mon Sep 17 00:00:00 2001
 From: Markus Kirberg <m.kirberg@trenz-electronic.de>
 Date: Thu, 23 Nov 2023 14:51:30 +0100
 Subject: [PATCH] te install general hooks zynqmp
+Upstream-Status: Inappropriate [Xilinx-specific FSBL customization]
 
 ---
  lib/sw_apps/zynqmp_fsbl/src/xfsbl_board.c |  4 ++

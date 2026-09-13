@@ -2,6 +2,7 @@ From 778b7757653bb11da87596c2f03e55ab60626cd9 Mon Sep 17 00:00:00 2001
 From: Markus Kirberg <m.kirberg@trenz-electronic.de>
 Date: Thu, 23 Nov 2023 14:37:04 +0100
 Subject: [PATCH 1/2] te install general hooks zynq
+Upstream-Status: Inappropriate [Xilinx-specific FSBL customization]
 
 ---
  lib/sw_apps/zynq_fsbl/src/fsbl_hooks.c | 13 +++++++++++++

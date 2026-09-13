@@ -147,31 +147,31 @@ u32 TE_FsblHookBeforeHandoff_Custom(void)
   xil_printf("\r\n--------------------------------------------------------------------------------\r\n");
   xil_printf("TE0726 Demo1 TE_FsblHookBeforeHandoff_Custom\r\n"); 
   /* Add the code here */
-  XVtc Vtc;
+//   XVtc Vtc;
 
-  xil_printf("FSBL: Enabling VTC..\n\r");
-  XVtc_Config *Config;
-  Config = XVtc_LookupConfig(XPAR_VTC_0_DEVICE_ID);
-  if (NULL == Config) {
-    xil_printf("XVtc_LookupConfig failure\r\n");
-    return XST_FAILURE;
-  }
+//   xil_printf("FSBL: Enabling VTC..\n\r");
+//   XVtc_Config *Config;
+//   Config = XVtc_LookupConfig(XPAR_VTC_0_DEVICE_ID);
+//   if (NULL == Config) {
+//     xil_printf("XVtc_LookupConfig failure\r\n");
+//     return XST_FAILURE;
+//   }
 
-  Status = XVtc_CfgInitialize(&Vtc, Config, Config->BaseAddress);
-  if (Status != XST_SUCCESS) {
-    xil_printf("XVtc_CfgInitialize failure\r\n");
-    return XST_FAILURE;
-  }
+//   Status = XVtc_CfgInitialize(&Vtc, Config, Config->BaseAddress);
+//   if (Status != XST_SUCCESS) {
+//     xil_printf("XVtc_CfgInitialize failure\r\n");
+//     return XST_FAILURE;
+//   }
 
-  XVtc_DisableSync(&Vtc);
-  XVtc_EnableGenerator(&Vtc);
+//   XVtc_DisableSync(&Vtc);
+//   XVtc_EnableGenerator(&Vtc);
 
-  xil_printf("FSBL: Enabling Out VDMA at 0x%08x..\n\r",HDMI_FB_ADDR);
-  vdma_out_init(XPAR_VIDEO_OUT_AXI_VDMA_0_DEVICE_ID, HDMI_FB_ADDR, 1280, 720, 4);
-  #ifdef ENABLE_CAMERA
-    xil_printf("FSBL: Enabling In  VDMA at 0x%08x..\n\r",CAMERA_FB_ADDR);
-    vdma_in_init(XPAR_VIDEO_IN_AXI_VDMA_0_DEVICE_ID, CAMERA_FB_ADDR, 1280, 720, 4);
-  #endif
+//   xil_printf("FSBL: Enabling Out VDMA at 0x%08x..\n\r",HDMI_FB_ADDR);
+//   vdma_out_init(XPAR_VIDEO_OUT_AXI_VDMA_0_DEVICE_ID, HDMI_FB_ADDR, 1280, 720, 4);
+//   #ifdef ENABLE_CAMERA
+//     xil_printf("FSBL: Enabling In  VDMA at 0x%08x..\n\r",CAMERA_FB_ADDR);
+//     vdma_in_init(XPAR_VIDEO_IN_AXI_VDMA_0_DEVICE_ID, CAMERA_FB_ADDR, 1280, 720, 4);
+//   #endif
   
   xil_printf("\r\n--------------------------------------------------------------------------------\r\n");
   xil_printf("TE0726 TE_FsblHookBeforeHandoff_Custom\r\n"); 
