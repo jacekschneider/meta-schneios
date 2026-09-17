@@ -4,7 +4,7 @@ SRC_URI:append = " file://platform-top.h file://bsp.cfg"
 
 do_configure:append() {
     install -d ${S}/include/configs
-    install -m 0644 ${WORKDIR}/platform-top.h ${S}/include/configs/platform-top.h
+    install -m 0644 ${UNPACKDIR}/platform-top.h ${S}/include/configs/platform-top.h
 }
 CONFIG_DTFILE = "system.dtb"
 
