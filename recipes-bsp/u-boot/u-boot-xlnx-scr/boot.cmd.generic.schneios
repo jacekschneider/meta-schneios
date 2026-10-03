@@ -9,7 +9,7 @@ ramdisk_name=@@RAMDISK_IMAGE1@@
 rootfs_name=@@RAMDISK_IMAGE@@
 @@PRE_BOOTENV@@
 
-
+echo SchneiOS Boot Command
 echo [TE_BOOT-01] Trenz Boot-file version 1.2 (development petalinux);
 echo [TE_BOOT-10] Found boot.scr in device: ${target}
 echo [TE_BOOT-11] Chosen Bootmode is ${modeboot} from boot_targets=${boot_targets};
