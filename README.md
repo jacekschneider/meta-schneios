@@ -1,3 +1,7 @@
+<p align="left">
+  <img src="SchneiOS.png" alt="SchneiOS Logo" width="220">
+</p>
+
 # meta-schneios
 
 ## Overview
