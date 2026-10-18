@@ -18,10 +18,8 @@ do_patch() {
         echo "Build Date:       ${DATE}"
         echo "Machine:          ${MACHINE}"
         echo "Distro:           ${DISTRO_NAME} ${DISTRO_VERSION}"
-        echo "Kernel Version:   ${KERNEL_VERSION}"
-        echo "U-Boot Version:   ${UBOOT_VERSION}"
         echo "-----------------------------------------"
-    } >> "${MOTD_FILE}"
+    } > "${MOTD_FILE}"
 }
 do_install() {
     install -d ${D}${sysconfdir}
