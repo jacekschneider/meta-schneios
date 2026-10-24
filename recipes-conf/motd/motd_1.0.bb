@@ -7,9 +7,8 @@ SRC_URI += "file://motd"
 
 S = "${UNPACKDIR}"
 
-do_patch() {
+do_compile() {
     MOTD_FILE="${UNPACKDIR}/motd"
-
     {
         echo ""
         echo "-----------------------------------------"
@@ -19,8 +18,9 @@ do_patch() {
         echo "Machine:          ${MACHINE}"
         echo "Distro:           ${DISTRO_NAME} ${DISTRO_VERSION}"
         echo "-----------------------------------------"
-    } > "${MOTD_FILE}"
+    } >> "${MOTD_FILE}"
 }
+
 do_install() {
     install -d ${D}${sysconfdir}
     install -m 0644 ${S}/motd ${D}${sysconfdir}/motd

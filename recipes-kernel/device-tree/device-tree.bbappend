@@ -1,10 +1,15 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-SRC_URI:append = " file://system-user.dtsi \
-    file://system.dtb \
-    "
+# Additional hardware description files used by system.dts
+EXTRA_DT_FILES = " \
+    zynq-7000.dtsi \
+    pl.dtsi \
+    pcw.dtsi \
+"
 
-require ${@'device-tree-sdt.inc' if d.getVar('SYSTEM_DTFILE') != '' else ''}
-CONFIG_DTFILE = "system.dtb"
-DT_INCLUDE:append = " ${S}"
+# Automatically append this include to system.dts
+EXTRA_DT_INCLUDE_FILES = "system-user.dtsi"
 
+# Build output name
+BASE_DTS = "system"
+DTB_FILE_NAME = "system.dtb"
