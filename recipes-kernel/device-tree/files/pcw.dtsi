@@ -151,7 +151,7 @@
 			xlnx,pcw-nor-grp-sram-cs0-enable = <0>;
 			xlnx,pcw-clk1-freq = <16326529>;
 			xlnx,pcw-mio-48-slew = "slow";
-			xlnx,pcw-m-axi-gp0-freqmhz = <159>;
+			xlnx,pcw-m-axi-gp0-freqmhz = <160>;
 			xlnx,pcw-ttc0-clk2-peripheral-divisor0 = <1>;
 			xlnx,pcw-mio-45-slew = "<Select>";
 			xlnx,pcw-mio-23-iotype = "<Select>";
@@ -409,7 +409,7 @@
 			xlnx,pcw-nor-cs0-t-wc = <11>;
 			xlnx,pcw-p2f-smc-intr = <0>;
 			xlnx,pcw-qspi-grp-ss1-enable = <0>;
-			xlnx,pcw-s-axi-hp2-freqmhz = <159>;
+			xlnx,pcw-s-axi-hp2-freqmhz = <160>;
 			xlnx,pcw-spi0-grp-ss2-io = "<Select>";
 			xlnx,pcw-uiparam-ddr-col-addr-count = <10>;
 			xlnx,pcw-ddr-lpr-to-critical-priority-level = <2>;
@@ -586,7 +586,7 @@
 			xlnx,pcw-uiparam-ddr-t-rc = <0x2ea4eb0>;
 			xlnx,pcw-uiparam-ddr-adv-enable = <0>;
 			xlnx,pcw-i2c-reset-enable = <0>;
-			xlnx,pcw-s-axi-hp1-freqmhz = <159>;
+			xlnx,pcw-s-axi-hp1-freqmhz = <160>;
 			xlnx,use-default-acp-user-val = <0>;
 			xlnx,pcw-act-i2c-peripheral-freqmhz = <50>;
 			xlnx,pcw-uiparam-ddr-t-faw = <40>;
@@ -730,7 +730,7 @@
 			xlnx,pcw-mio-29-pullup = "enabled";
 			xlnx,pcw-mio-30-pullup = "enabled";
 			xlnx,trace-internal-width = <2>;
-			xlnx,pcw-s-axi-hp0-freqmhz = <159>;
+			xlnx,pcw-s-axi-hp0-freqmhz = <160>;
 			xlnx,pcw-mio-7-direction = "out";
 			xlnx,pcw-i2c0-reset-enable = <0>;
 			xlnx,pcw-mio-53-slew = "slow";
